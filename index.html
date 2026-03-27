@@ -79,6 +79,7 @@ body::before {
 
 .hero {
   position: relative;
+  position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
   border: 1px solid var(--border);
@@ -87,6 +88,38 @@ body::before {
   padding: 30px 22px;
   backdrop-filter: blur(16px);
   margin-bottom: 22px;
+}
+
+.philosopher-portrait {
+  position: absolute;
+  top: 18px;
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(255,255,255,0.06));
+  border: 1px solid rgba(212,175,55,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+  backdrop-filter: blur(8px);
+}
+
+.philosopher-portrait.left { left: 18px; }
+.philosopher-portrait.right { right: 88px; }
+
+.portrait-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  color: #fff8dc;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(212,175,55,0.18), rgba(0,0,0,0.15));
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .hero::after {
@@ -308,6 +341,37 @@ body::before {
   font-size: 15px;
 }
 
+.music-card {
+  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(255,255,255,0.04));
+  border: 1px solid rgba(96,165,250,0.25);
+}
+
+.music-note {
+  color: #bfdbfe;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+
+.music-upload {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.music-upload input[type="file"] {
+  color: white;
+  font-size: 14px;
+}
+
+audio {
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 12px;
+  opacity: 0.95;
+}
+
 .quote-card {
   margin-top: 20px;
   background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(255,255,255,0.04));
@@ -369,6 +433,20 @@ button:hover { transform: translateY(-1px); }
 }
 
 @media (max-width: 760px) {
+  .philosopher-portrait {
+    width: 58px;
+    height: 58px;
+    top: 14px;
+  }
+
+  .portrait-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  .philosopher-portrait.left { left: 12px; }
+  .philosopher-portrait.right { right: 72px; }
   .grid, .stats, .inputs {
     grid-template-columns: 1fr;
   }
@@ -388,6 +466,12 @@ button:hover { transform: translateY(-1px); }
   <div class="orb one"></div>
   <div class="orb two"></div>  <div class="container">
     <section class="hero">
+      <div class="philosopher-portrait left" aria-hidden="true">
+        <div class="portrait-circle">Σ</div>
+      </div>
+      <div class="philosopher-portrait right" aria-hidden="true">
+        <div class="portrait-circle">φ</div>
+      </div>
       <div class="badge">Philosopher Mode • Self Mastery</div>
       <h1 class="title">Daily Glow Up Tracker</h1>
       <div class="name">Muhammad Al-Fatih</div>
@@ -472,6 +556,17 @@ button:hover { transform: translateY(-1px); }
     </div>
   </div>
 
+  <div class="card wide music-card">
+    <h2>🎵 Musik Pendamping</h2>
+    <div class="music-note">
+      Aku tambahkan pemutar musik untuk suasana fokus. Demi keamanan hak cipta, lagu tertentu tidak dimasukkan langsung ke kode. Kamu bisa pilih file audio milikmu sendiri dari perangkat, lalu musik akan diputar di website ini.
+    </div>
+    <div class="music-upload">
+      <input id="audioFile" type="file" accept="audio/*">
+      <audio id="audioPlayer" controls></audio>
+    </div>
+  </div>
+
   <div class="card wide quote-card">
     <div class="quote">
       “Orang besar bukan yang selalu dipuji wajahnya, tetapi yang sanggup membangun dirinya setiap hari. Tubuhmu adalah wadah, pikiranmu adalah arah, dan disiplinmu adalah takdir.”
@@ -484,6 +579,8 @@ button:hover { transform: translateY(-1px); }
 
   </div>  <script>
     const checks = document.querySelectorAll('.task-check');
+    const audioFile = document.getElementById('audioFile');
+    const audioPlayer = document.getElementById('audioPlayer');
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const doneCount = document.getElementById('doneCount');
@@ -553,6 +650,14 @@ button:hover { transform: translateY(-1px); }
     checks.forEach(check => check.addEventListener('change', updateProgress));
     targetBerat.addEventListener('input', () => {
       targetBeratStat.textContent = (targetBerat.value || '50') + ' kg';
+    });
+
+    audioFile.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const audioURL = URL.createObjectURL(file);
+      audioPlayer.src = audioURL;
+      audioPlayer.play();
     });
 
     loadData();
