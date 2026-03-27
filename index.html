@@ -1,63 +1,560 @@
 <!DOCTYPE html><html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glow Up Tracker - Muhammad Al-Fatih</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Up Tracker - Muhammad Al-Fatih</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-1: #07111f;
+      --bg-2: #0f1c2e;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.18);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --green: #22c55e;
+      --shadow: 0 18px 60px rgba(0,0,0,0.45);
+      --danger: #ef4444;
+    }* { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f172a, #1e293b, #020617);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.12), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(255,255,255,0.08), transparent 18%),
+    linear-gradient(135deg, #030712 0%, #081223 35%, #101d32 70%, #050b14 100%);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.35));
+  pointer-events: none;
+}
+
+.orb {
+  position: fixed;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb.one {
+  width: 220px;
+  height: 220px;
+  background: #1d4ed8;
+  top: 80px;
+  left: -40px;
+}
+
+.orb.two {
+  width: 260px;
+  height: 260px;
+  background: #d4af37;
+  bottom: 40px;
+  right: -60px;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 16px 64px;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 30px;
+  padding: 30px 22px;
+  backdrop-filter: blur(16px);
+  margin-bottom: 22px;
+}
+
+.hero::after {
+  content: "⚖️";
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 58px;
+  opacity: 0.08;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-soft);
+  color: #fde68a;
+  border: 1px solid rgba(212,175,55,0.35);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.08;
+  margin: 0;
+  text-shadow: 0 6px 25px rgba(0,0,0,0.35);
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 700px;
+}
+
+.name {
+  margin-top: 16px;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff8dc;
+  border-bottom: 1px solid rgba(212,175,55,0.45);
+  padding-bottom: 4px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.stat .label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.stat .value {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 22px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent 40%);
+  pointer-events: none;
+}
+
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 10px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.task input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.06);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.task input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-color: #60a5fa;
+}
+
+.task input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
   color: white;
-}.container { max-width: 800px; margin: auto; padding: 20px; }
+  font-size: 15px;
+  font-weight: 800;
+  left: 5px;
+  top: 0px;
+}
 
-.title { text-align: center; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 5px; }
+.task span {
+  font-size: 15px;
+  line-height: 1.45;
+  transition: all 0.25s ease;
+  color: #eef2ff;
+}
 
-.subtitle { text-align: center; font-size: 14px; color: #94a3b8; margin-bottom: 30px; }
+.task input[type="checkbox"]:checked + span {
+  color: var(--green);
+  text-decoration: line-through;
+  opacity: 0.95;
+}
 
-.card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 20px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.wide {
+  grid-column: 1 / -1;
+}
 
-.card h2 { margin-bottom: 15px; }
+.progress-wrap {
+  margin-top: 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+  height: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
 
-.task { display: flex; align-items: center; margin-bottom: 10px; }
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #84cc16, #facc15);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
 
-.task input { margin-right: 10px; transform: scale(1.2); }
+.progress-text {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
 
-.task span { transition: 0.3s; }
+.inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
 
-.task input:checked + span { text-decoration: line-through; color: #22c55e; }
+.input-group {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 12px;
+}
 
-.motivation { text-align: center; margin-top: 40px; font-family: 'Playfair Display', serif; font-size: 18px; color: #e2e8f0; line-height: 1.6; }
+.input-group label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
 
-.footer { text-align: center; margin-top: 20px; font-size: 12px; color: #64748b; }
+.input-group input {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  color: white;
+  font-size: 15px;
+}
 
-</style>
+.quote-card {
+  margin-top: 20px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(255,255,255,0.04));
+  border: 1px solid rgba(212,175,55,0.28);
+}
+
+.quote {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  line-height: 1.7;
+  color: #fff8dc;
+  text-align: center;
+}
+
+.quote small {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 24px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover { transform: translateY(-1px); }
+
+.primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+}
+
+.secondary {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 760px) {
+  .grid, .stats, .inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .card h2 {
+    font-size: 22px;
+  }
+}
+
+  </style>
 </head>
-<body><div class="container"><div class="title">Glow Up Tracker</div>
-<div class="subtitle">Muhammad Al-Fatih</div><div class="card">
-<h2>💪 Latihan Body</h2>
-<div class="task"><input type="checkbox"><span>Push Up 3x15</span></div>
-<div class="task"><input type="checkbox"><span>Squat 3x15</span></div>
-<div class="task"><input type="checkbox"><span>Plank 60 detik</span></div>
-</div><div class="card">
-<h2>🧱 Rahang & Wajah</h2>
-<div class="task"><input type="checkbox"><span>Mewing seharian</span></div>
-<div class="task"><input type="checkbox"><span>Chin Tuck 15x</span></div>
-<div class="task"><input type="checkbox"><span>Permen karet 15 menit</span></div>
-</div><div class="card">
-<h2>🧠 Pengembangan Diri</h2>
-<div class="task"><input type="checkbox"><span>Baca Filsafat 30 menit</span></div>
-<div class="task"><input type="checkbox"><span>Murojaah 30 menit</span></div>
-<div class="task"><input type="checkbox"><span>Belajar Bahasa</span></div>
-</div><div class="card">
-<h2>✨ Perawatan</h2>
-<div class="task"><input type="checkbox"><span>Skincare</span></div>
-<div class="task"><input type="checkbox"><span>Minum air cukup</span></div>
-<div class="task"><input type="checkbox"><span>Tidur cukup</span></div>
-</div><div class="motivation">
-"Manusia yang kuat bukan hanya yang tampak di luar, 
-tapi yang mampu menaklukkan dirinya sendiri. Disiplin hari ini adalah wajah hebatmu di masa depan."
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>  <div class="container">
+    <section class="hero">
+      <div class="badge">Philosopher Mode • Self Mastery</div>
+      <h1 class="title">Daily Glow Up Tracker</h1>
+      <div class="name">Muhammad Al-Fatih</div>
+      <p class="subtitle">
+        Disiplin tubuh, ketajaman pikiran, dan keteguhan jiwa. Ini bukan sekadar checklist harian, tetapi jalan untuk membentuk versi dirimu yang lebih kuat, lebih tajam, dan lebih berwibawa.
+      </p><div class="stats">
+    <div class="stat">
+      <div class="label">Target Berat</div>
+      <div class="value" id="targetBeratStat">50 kg</div>
+    </div>
+    <div class="stat">
+      <div class="label">Checklist Selesai</div>
+      <div class="value" id="doneCount">0</div>
+    </div>
+    <div class="stat">
+      <div class="label">Progress Hari Ini</div>
+      <div class="value" id="percentValue">0%</div>
+    </div>
+  </div>
+</section>
 
-</div><div class="footer">Build Your Best Version</div></div></body>
+<section class="grid">
+  <div class="card">
+    <h2>💪 Latihan Body</h2>
+    <label class="task"><input type="checkbox" class="task-check"><span>Push Up 3 × 15</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Squat 3 × 20</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Plank 3 × 45 detik</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Chin Up / Gantung 3 set</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Makan protein setelah latihan</span></label>
+  </div>
+
+  <div class="card">
+    <h2>🧱 Rahang & Mata</h2>
+    <label class="task"><input type="checkbox" class="task-check"><span>Mewing sepanjang hari</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Chin Tuck 2 × 15 repetisi</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Permen karet 10–15 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Latihan tatapan fokus 2 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Tidur cukup agar mata lebih fresh</span></label>
+  </div>
+
+  <div class="card">
+    <h2>🧠 Belajar & Filsafat</h2>
+    <label class="task"><input type="checkbox" class="task-check"><span>Baca filsafat 30 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Murojaah hafalan 30 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Muthola'ah kitab 30 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Latihan bahasa Arab / Inggris 20 menit</span></label>
+  </div>
+
+  <div class="card">
+    <h2>✨ Perawatan Diri</h2>
+    <label class="task"><input type="checkbox" class="task-check"><span>Skincare pagi / malam</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Minum air minimal 6–8 gelas</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Postur tegap 5 menit latihan</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Rapikan rambut & penampilan</span></label>
+  </div>
+
+  <div class="card wide">
+    <h2>📊 Progress Harian</h2>
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">Belum mulai. Ayo taklukkan harimu.</div>
+
+    <div class="inputs">
+      <div class="input-group">
+        <label for="beratSekarang">Berat Sekarang (kg)</label>
+        <input id="beratSekarang" type="number" placeholder="Contoh: 44" />
+      </div>
+      <div class="input-group">
+        <label for="targetBerat">Target Berat (kg)</label>
+        <input id="targetBerat" type="number" placeholder="Contoh: 50" value="50" />
+      </div>
+      <div class="input-group">
+        <label for="catatanHari">Catatan Hari Ini</label>
+        <input id="catatanHari" type="text" placeholder="Contoh: lebih disiplin" />
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="primary" onclick="saveData()">Simpan Progress</button>
+      <button class="secondary" onclick="resetAll()">Reset Checklist</button>
+    </div>
+  </div>
+
+  <div class="card wide quote-card">
+    <div class="quote">
+      “Orang besar bukan yang selalu dipuji wajahnya, tetapi yang sanggup membangun dirinya setiap hari. Tubuhmu adalah wadah, pikiranmu adalah arah, dan disiplinmu adalah takdir.”
+      <small>Untuk Muhammad Al-Fatih</small>
+    </div>
+  </div>
+</section>
+
+<div class="footer">Built with discipline, dignity, and vision.</div>
+
+  </div>  <script>
+    const checks = document.querySelectorAll('.task-check');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const doneCount = document.getElementById('doneCount');
+    const percentValue = document.getElementById('percentValue');
+    const targetBerat = document.getElementById('targetBerat');
+    const targetBeratStat = document.getElementById('targetBeratStat');
+    const beratSekarang = document.getElementById('beratSekarang');
+    const catatanHari = document.getElementById('catatanHari');
+
+    function updateProgress() {
+      const total = checks.length;
+      const done = [...checks].filter(c => c.checked).length;
+      const percent = Math.round((done / total) * 100);
+      progressBar.style.width = percent + '%';
+      doneCount.textContent = done;
+      percentValue.textContent = percent + '%';
+
+      if (percent === 0) {
+        progressText.textContent = 'Belum mulai. Ayo taklukkan harimu.';
+      } else if (percent < 40) {
+        progressText.textContent = 'Awal yang baik. Konsisten lebih penting daripada sempurna.';
+      } else if (percent < 80) {
+        progressText.textContent = 'Bagus. Kamu sedang membentuk versi terbaik dirimu.';
+      } else if (percent < 100) {
+        progressText.textContent = 'Hampir selesai. Selesaikan dengan disiplin seorang penakluk.';
+      } else {
+        progressText.textContent = 'Sempurna hari ini. Jiwa besar dibangun dari kemenangan kecil.';
+      }
+    }
+
+    function saveData() {
+      const checkedStates = [...checks].map(c => c.checked);
+      localStorage.setItem('fatih_checks', JSON.stringify(checkedStates));
+      localStorage.setItem('fatih_target', targetBerat.value || '50');
+      localStorage.setItem('fatih_berat', beratSekarang.value || '');
+      localStorage.setItem('fatih_catatan', catatanHari.value || '');
+      targetBeratStat.textContent = (targetBerat.value || '50') + ' kg';
+      alert('Progress berhasil disimpan.');
+    }
+
+    function loadData() {
+      const savedChecks = JSON.parse(localStorage.getItem('fatih_checks') || '[]');
+      savedChecks.forEach((val, i) => {
+        if (checks[i]) checks[i].checked = val;
+      });
+
+      const savedTarget = localStorage.getItem('fatih_target');
+      const savedBerat = localStorage.getItem('fatih_berat');
+      const savedCatatan = localStorage.getItem('fatih_catatan');
+
+      if (savedTarget) {
+        targetBerat.value = savedTarget;
+        targetBeratStat.textContent = savedTarget + ' kg';
+      }
+      if (savedBerat) beratSekarang.value = savedBerat;
+      if (savedCatatan) catatanHari.value = savedCatatan;
+
+      updateProgress();
+    }
+
+    function resetAll() {
+      checks.forEach(c => c.checked = false);
+      localStorage.removeItem('fatih_checks');
+      updateProgress();
+    }
+
+    checks.forEach(check => check.addEventListener('change', updateProgress));
+    targetBerat.addEventListener('input', () => {
+      targetBeratStat.textContent = (targetBerat.value || '50') + ' kg';
+    });
+
+    loadData();
+  </script></body>
 </html>
