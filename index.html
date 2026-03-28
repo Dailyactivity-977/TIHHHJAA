@@ -2,662 +2,503 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow Up Tracker - Muhammad Al-Fatih</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Al-Fatih Ultimate Glow Up</title>
+  <meta name="theme-color" content="#0b1220" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-1: #07111f;
-      --bg-2: #0f1c2e;
-      --gold: #d4af37;
-      --gold-soft: rgba(212, 175, 55, 0.18);
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --card: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.12);
-      --green: #22c55e;
-      --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --danger: #ef4444;
-    }* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  color: var(--text);
+    :root{
+      --bg:#060b14;
+      --bg2:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.08);
+      --text:#eef2ff;
+      --muted:#9fb0c9;
+      --gold:#d4af37;
+      --blue:#3b82f6;
+      --green:#22c55e;
+      --red:#ef4444;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;
+    }*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(circle at top left, rgba(212,175,55,0.12), transparent 28%),
-    radial-gradient(circle at 85% 15%, rgba(255,255,255,0.08), transparent 18%),
-    linear-gradient(135deg, #030712 0%, #081223 35%, #101d32 70%, #050b14 100%);
-  overflow-x: hidden;
-  position: relative;
+    radial-gradient(circle at 15% 10%, rgba(59,130,246,.18), transparent 20%),
+    radial-gradient(circle at 85% 20%, rgba(212,175,55,.15), transparent 18%),
+    linear-gradient(135deg, #030712, #0b1220 45%, #111827 100%);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.35));
-  pointer-events: none;
+.texture,.texture2{
+  position:fixed; inset:0; pointer-events:none;
+}
+.texture{
+  background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:24px 24px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+}
+.texture2{
+  background: radial-gradient(circle at center, transparent 45%, rgba(0,0,0,.22));
 }
 
-.orb {
-  position: fixed;
-  border-radius: 999px;
-  filter: blur(80px);
-  opacity: 0.22;
-  pointer-events: none;
-  z-index: 0;
+.app{
+  width:min(980px, calc(100% - 24px));
+  margin:18px auto 36px;
+  position:relative;
+  z-index:1;
 }
 
-.orb.one {
-  width: 220px;
-  height: 220px;
-  background: #1d4ed8;
-  top: 80px;
-  left: -40px;
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:32px;
+  background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  backdrop-filter: blur(18px);
+  box-shadow:var(--shadow);
 }
 
-.orb.two {
-  width: 260px;
-  height: 260px;
-  background: #d4af37;
-  bottom: 40px;
-  right: -60px;
+.hero::before{
+  content:"";
+  position:absolute; inset:auto -40px -60px auto;
+  width:220px; height:220px; border-radius:999px;
+  background:radial-gradient(circle, rgba(212,175,55,.22), transparent 65%);
 }
 
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 28px 16px 64px;
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  margin-bottom:12px;
 }
-
-.hero {
-  position: relative;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  border-radius: 30px;
-  padding: 30px 22px;
-  backdrop-filter: blur(16px);
-  margin-bottom: 22px;
+.chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 14px; border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.24);
+  color:#fde68a; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
 }
-
-.philosopher-portrait {
-  position: absolute;
-  top: 18px;
-  width: 74px;
-  height: 74px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(255,255,255,0.06));
-  border: 1px solid rgba(212,175,55,0.28);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.28);
-  backdrop-filter: blur(8px);
+.install-btn{
+  border:none; cursor:pointer; padding:10px 14px; border-radius:14px; font-weight:700;
+  background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white;
+  box-shadow:0 10px 24px rgba(37,99,235,.3);
 }
-
-.philosopher-portrait.left { left: 18px; }
-.philosopher-portrait.right { right: 88px; }
-
-.portrait-circle {
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-size: 30px;
-  color: #fff8dc;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(212,175,55,0.18), rgba(0,0,0,0.15));
-  border: 1px solid rgba(255,255,255,0.12);
+h1{
+  margin:0; font-family:'Cinzel',serif; font-size:clamp(30px, 5vw, 54px); line-height:1.05;
 }
+.subtitle{margin:10px 0 8px; color:var(--muted); max-width:720px; line-height:1.75}
+.name{display:inline-block; margin-top:4px; font-weight:800; color:#fff8dc; border-bottom:1px solid rgba(212,175,55,.35); padding-bottom:4px}
 
-.hero::after {
-  content: "⚖️";
-  position: absolute;
-  right: 18px;
-  top: 14px;
-  font-size: 58px;
-  opacity: 0.08;
+.hero-grid,.grid{
+  display:grid; gap:16px;
 }
+.hero-grid{grid-template-columns:2fr 1fr; margin-top:18px}
+.grid{grid-template-columns:repeat(2, minmax(0,1fr)); margin-top:16px}
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--gold-soft);
-  color: #fde68a;
-  border: 1px solid rgba(212,175,55,0.35);
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+.card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--card);
+  backdrop-filter: blur(18px);
+  box-shadow:var(--shadow);
+  padding:18px;
+  position:relative;
+  overflow:hidden;
 }
-
-.title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(30px, 5vw, 52px);
-  line-height: 1.08;
-  margin: 0;
-  text-shadow: 0 6px 25px rgba(0,0,0,0.35);
+.card::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(135deg, rgba(255,255,255,.04), transparent 40%);
 }
+.wide{grid-column:1/-1}
+.card h2,.card h3{margin:0 0 14px; font-size:24px}
+.muted{color:var(--muted)}
 
-.subtitle {
-  margin-top: 10px;
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 700px;
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.stat{
+  padding:14px; border-radius:20px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)
 }
+.stat .label{font-size:12px; color:var(--muted); margin-bottom:8px}
+.stat .value{font-size:24px; font-weight:800}
 
-.name {
-  margin-top: 16px;
-  display: inline-block;
-  font-weight: 700;
-  font-size: 16px;
-  color: #fff8dc;
-  border-bottom: 1px solid rgba(212,175,55,0.45);
-  padding-bottom: 4px;
+.task{
+  display:flex; gap:12px; align-items:center; padding:12px; margin:10px 0;
+  border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)
 }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 22px;
+.task input{
+  appearance:none; width:23px; height:23px; border-radius:8px; flex-shrink:0;
+  border:2px solid rgba(255,255,255,.35); background:rgba(255,255,255,.05); position:relative; cursor:pointer
 }
+.task input:checked{background:linear-gradient(135deg,#2563eb,#3b82f6); border-color:#60a5fa}
+.task input:checked::after{content:"✓"; position:absolute; left:5px; top:0; font-weight:800}
+.task span{line-height:1.5}
+.task input:checked + span{color:var(--green); text-decoration:line-through}
 
-.stat {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 16px;
+.progress-wrap{height:16px; border-radius:999px; overflow:hidden; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.05)}
+.progress-bar{height:100%; width:0%; background:linear-gradient(90deg, #22c55e, #84cc16, #facc15); transition:width .35s ease}
+.progress-meta{display:flex; justify-content:space-between; gap:8px; margin-top:10px; color:var(--muted); font-size:14px; font-weight:600}
+
+.level-shell{display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center}
+.level-circle{
+  width:96px; height:96px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:24px; color:#fff8dc;
+  background:conic-gradient(var(--gold) var(--deg, 0deg), rgba(255,255,255,.08) 0deg);
+  position:relative;
 }
-
-.stat .label {
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 8px;
+.level-circle::before{
+  content:""; position:absolute; inset:9px; border-radius:999px; background:#0d1525; border:1px solid rgba(255,255,255,.08)
 }
+.level-circle span{position:relative; z-index:1}
 
-.stat .value {
-  font-size: 24px;
-  font-weight: 800;
+.inputs{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px}
+.field{padding:12px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+.field label{display:block; font-size:12px; color:var(--muted); margin-bottom:8px}
+.field input,.field textarea,.field select{
+  width:100%; border:none; outline:none; resize:none; border-radius:12px; background:rgba(255,255,255,.07); color:white; padding:12px; font-size:14px; font-family:inherit
 }
+textarea{min-height:92px}
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+.btn-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+.btn{border:none; cursor:pointer; border-radius:14px; padding:12px 16px; font-weight:800}
+.btn.primary{background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white}
+.btn.gold{background:linear-gradient(135deg,#a16207,#d4af37); color:#fffdf5}
+.btn.ghost{background:rgba(255,255,255,.08); color:white; border:1px solid rgba(255,255,255,.08)}
+
+.quote{
+  font-family:'Cinzel',serif; line-height:1.8; text-align:center; color:#fff8dc; font-size:22px
 }
+.quote small{display:block; margin-top:12px; color:var(--muted); font-family:'Inter',sans-serif; text-transform:uppercase; letter-spacing:.08em; font-size:12px}
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 26px;
-  padding: 22px;
-  backdrop-filter: blur(16px);
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
+.streaks{display:grid; grid-template-columns:repeat(7,1fr); gap:8px}
+.daybox{padding:12px 6px; text-align:center; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05); font-size:13px}
+.daybox.done{background:rgba(34,197,94,.14); border-color:rgba(34,197,94,.3); color:#bbf7d0}
+
+.achievements{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.badge-card{padding:14px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)}
+.badge-card.locked{opacity:.45; filter:grayscale(.3)}
+.badge-card .icon{font-size:28px; margin-bottom:10px}
+.badge-card .ttl{font-weight:800; margin-bottom:6px}
+.badge-card .desc{font-size:13px; color:var(--muted); line-height:1.5}
+
+.music-box{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center}
+.music-box audio{width:100%}
+
+.philosophers{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.philo{
+  padding:14px; border-radius:18px; background:linear-gradient(135deg, rgba(212,175,55,.12), rgba(255,255,255,.04)); border:1px solid rgba(212,175,55,.2)
 }
+.philo .head{font-family:'Cinzel',serif; font-size:20px; margin-bottom:8px}
+.philo .txt{font-size:13px; line-height:1.6; color:var(--muted)}
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent 40%);
-  pointer-events: none;
-}
+.footer{text-align:center; color:var(--muted); padding:24px 0 8px; font-size:13px}
 
-.card h2 {
-  margin: 0 0 16px;
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.task {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 10px;
-  border-radius: 16px;
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.task input[type="checkbox"] {
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  border: 2px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.06);
-  cursor: pointer;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.task input[type="checkbox"]:checked {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  border-color: #60a5fa;
-}
-
-.task input[type="checkbox"]:checked::after {
-  content: "✓";
-  position: absolute;
-  color: white;
-  font-size: 15px;
-  font-weight: 800;
-  left: 5px;
-  top: 0px;
-}
-
-.task span {
-  font-size: 15px;
-  line-height: 1.45;
-  transition: all 0.25s ease;
-  color: #eef2ff;
-}
-
-.task input[type="checkbox"]:checked + span {
-  color: var(--green);
-  text-decoration: line-through;
-  opacity: 0.95;
-}
-
-.wide {
-  grid-column: 1 / -1;
-}
-
-.progress-wrap {
-  margin-top: 12px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 999px;
-  overflow: hidden;
-  height: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #22c55e, #84cc16, #facc15);
-  border-radius: 999px;
-  transition: width 0.35s ease;
-}
-
-.progress-text {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.inputs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.input-group {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 12px;
-}
-
-.input-group label {
-  display: block;
-  font-size: 12px;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-
-.input-group input {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  padding: 12px;
-  color: white;
-  font-size: 15px;
-}
-
-.music-card {
-  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(255,255,255,0.04));
-  border: 1px solid rgba(96,165,250,0.25);
-}
-
-.music-note {
-  color: #bfdbfe;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-top: 10px;
-}
-
-.music-upload {
-  margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.music-upload input[type="file"] {
-  color: white;
-  font-size: 14px;
-}
-
-audio {
-  width: 100%;
-  margin-top: 4px;
-  border-radius: 12px;
-  opacity: 0.95;
-}
-
-.quote-card {
-  margin-top: 20px;
-  background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(255,255,255,0.04));
-  border: 1px solid rgba(212,175,55,0.28);
-}
-
-.quote {
-  font-family: 'Cinzel', serif;
-  font-size: 22px;
-  line-height: 1.7;
-  color: #fff8dc;
-  text-align: center;
-}
-
-.quote small {
-  display: block;
-  margin-top: 14px;
-  font-family: 'Inter', sans-serif;
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.footer {
-  text-align: center;
-  padding-top: 24px;
-  color: #94a3b8;
-  font-size: 13px;
-}
-
-.btn-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-button {
-  border: none;
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-button:hover { transform: translateY(-1px); }
-
-.primary {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
-}
-
-.secondary {
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-@media (max-width: 760px) {
-  .philosopher-portrait {
-    width: 58px;
-    height: 58px;
-    top: 14px;
-  }
-
-  .portrait-circle {
-    width: 44px;
-    height: 44px;
-    font-size: 22px;
-  }
-
-  .philosopher-portrait.left { left: 12px; }
-  .philosopher-portrait.right { right: 72px; }
-  .grid, .stats, .inputs {
-    grid-template-columns: 1fr;
-  }
-
-  .title {
-    font-size: 36px;
-  }
-
-  .card h2 {
-    font-size: 22px;
-  }
+@media (max-width: 820px){
+  .hero-grid,.grid,.stats,.inputs,.achievements,.philosophers{grid-template-columns:1fr}
+  .streaks{grid-template-columns:repeat(4,1fr)}
+  .level-shell,.music-box{grid-template-columns:1fr}
+  .level-circle{margin:auto}
+  .app{width:min(100% - 16px, 980px)}
+  h1{font-size:38px}
 }
 
   </style>
 </head>
 <body>
-  <div class="orb one"></div>
-  <div class="orb two"></div>  <div class="container">
+  <div class="texture"></div>
+  <div class="texture2"></div>  <div class="app">
     <section class="hero">
-      <div class="philosopher-portrait left" aria-hidden="true">
-        <div class="portrait-circle">Σ</div>
+      <div class="topbar">
+        <div class="chip">Ultimate Philosopher Glow Up</div>
+        <button id="installBtn" class="install-btn" style="display:none">Install App</button>
       </div>
-      <div class="philosopher-portrait right" aria-hidden="true">
-        <div class="portrait-circle">φ</div>
-      </div>
-      <div class="badge">Philosopher Mode • Self Mastery</div>
-      <h1 class="title">Daily Glow Up Tracker</h1>
+      <h1>Al-Fatih Ultimate Glow Up</h1>
       <div class="name">Muhammad Al-Fatih</div>
-      <p class="subtitle">
-        Disiplin tubuh, ketajaman pikiran, dan keteguhan jiwa. Ini bukan sekadar checklist harian, tetapi jalan untuk membentuk versi dirimu yang lebih kuat, lebih tajam, dan lebih berwibawa.
-      </p><div class="stats">
-    <div class="stat">
-      <div class="label">Target Berat</div>
-      <div class="value" id="targetBeratStat">50 kg</div>
+      <p class="subtitle">Sistem pribadi untuk membangun tubuh, rahang, disiplin, ilmu, dan aura. Bukan sekadar checklist, tapi markas latihan untuk versi dirimu yang lebih kuat, lebih tenang, dan lebih berkelas.</p><div class="hero-grid">
+    <div class="card">
+      <h3>📊 Dashboard Hari Ini</h3>
+      <div class="stats">
+        <div class="stat"><div class="label">Checklist</div><div class="value" id="doneCount">0</div></div>
+        <div class="stat"><div class="label">Progress</div><div class="value" id="percentValue">0%</div></div>
+        <div class="stat"><div class="label">Streak</div><div class="value" id="streakValue">0</div></div>
+        <div class="stat"><div class="label">Level</div><div class="value" id="levelValue">1</div></div>
+      </div>
+      <div style="margin-top:14px" class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-meta"><span id="progressText">Mulai hari ini dengan disiplin.</span><span id="xpText">0 / 100 XP</span></div>
     </div>
-    <div class="stat">
-      <div class="label">Checklist Selesai</div>
-      <div class="value" id="doneCount">0</div>
-    </div>
-    <div class="stat">
-      <div class="label">Progress Hari Ini</div>
-      <div class="value" id="percentValue">0%</div>
+
+    <div class="card">
+      <h3>⚔️ XP & Level</h3>
+      <div class="level-shell">
+        <div>
+          <div class="muted" style="line-height:1.7">Setiap tugas yang selesai memberi XP. Saat XP penuh, level kamu naik. Anggap ini seperti game untuk menaklukkan dirimu sendiri.</div>
+        </div>
+        <div class="level-circle" id="levelCircle"><span id="levelCircleText">Lv 1</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="grid">
   <div class="card">
-    <h2>💪 Latihan Body</h2>
+    <h2>💪 Body Builder</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Push Up 3 × 15</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Squat 3 × 20</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Plank 3 × 45 detik</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Chin Up / Gantung 3 set</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Pull / Gantung 3 set</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Makan protein setelah latihan</span></label>
   </div>
 
   <div class="card">
     <h2>🧱 Rahang & Mata</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Mewing sepanjang hari</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Chin Tuck 2 × 15 repetisi</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Chin Tuck 2 × 15</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Permen karet 10–15 menit</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Latihan tatapan fokus 2 menit</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Tidur cukup agar mata lebih fresh</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Tidur cukup dan napas lewat hidung</span></label>
   </div>
 
   <div class="card">
-    <h2>🧠 Belajar & Filsafat</h2>
+    <h2>🧠 Ilmu & Filsafat</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Baca filsafat 30 menit</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Murojaah hafalan 30 menit</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Muthola'ah kitab 30 menit</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Latihan bahasa Arab / Inggris 20 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Bahasa Arab / Inggris 20 menit</span></label>
   </div>
 
   <div class="card">
-    <h2>✨ Perawatan Diri</h2>
+    <h2>✨ Aura & Perawatan</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Skincare pagi / malam</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Minum air minimal 6–8 gelas</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Postur tegap 5 menit latihan</span></label>
-    <label class="task"><input type="checkbox" class="task-check"><span>Rapikan rambut & penampilan</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Minum air cukup</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Latihan postur tegap 5 menit</span></label>
+    <label class="task"><input type="checkbox" class="task-check"><span>Rapikan rambut & outfit</span></label>
   </div>
 
   <div class="card wide">
-    <h2>📊 Progress Harian</h2>
-    <div class="progress-wrap">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-    <div class="progress-text" id="progressText">Belum mulai. Ayo taklukkan harimu.</div>
-
+    <h2>🎯 Target & Catatan</h2>
     <div class="inputs">
-      <div class="input-group">
-        <label for="beratSekarang">Berat Sekarang (kg)</label>
-        <input id="beratSekarang" type="number" placeholder="Contoh: 44" />
+      <div class="field">
+        <label>Berat Sekarang (kg)</label>
+        <input id="weightNow" type="number" placeholder="44">
       </div>
-      <div class="input-group">
-        <label for="targetBerat">Target Berat (kg)</label>
-        <input id="targetBerat" type="number" placeholder="Contoh: 50" value="50" />
+      <div class="field">
+        <label>Target Berat (kg)</label>
+        <input id="weightTarget" type="number" value="50">
       </div>
-      <div class="input-group">
-        <label for="catatanHari">Catatan Hari Ini</label>
-        <input id="catatanHari" type="text" placeholder="Contoh: lebih disiplin" />
+      <div class="field">
+        <label>Fokus Minggu Ini</label>
+        <select id="weeklyFocus">
+          <option>Naik berat badan</option>
+          <option>Rahang lebih tegas</option>
+          <option>Disiplin belajar</option>
+          <option>Perbaiki aura</option>
+        </select>
       </div>
     </div>
-
+    <div class="field" style="margin-top:12px">
+      <label>Catatan Hari Ini</label>
+      <textarea id="dailyNote" placeholder="Tulis evaluasi singkat, misalnya: hari ini lebih disiplin, makan lebih banyak, latihan lebih fokus."></textarea>
+    </div>
     <div class="btn-row">
-      <button class="primary" onclick="saveData()">Simpan Progress</button>
-      <button class="secondary" onclick="resetAll()">Reset Checklist</button>
+      <button class="btn primary" onclick="saveData()">Simpan Progress</button>
+      <button class="btn gold" onclick="finishDay()">Selesaikan Hari Ini</button>
+      <button class="btn ghost" onclick="resetChecks()">Reset Checklist</button>
     </div>
   </div>
 
-  <div class="card wide music-card">
+  <div class="card">
+    <h2>🔥 Streak Mingguan</h2>
+    <div class="streaks" id="streakGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>🏆 Achievement</h2>
+    <div class="achievements">
+      <div class="badge-card" id="ach1"><div class="icon">⚡</div><div class="ttl">Starter</div><div class="desc">Selesaikan 1 hari penuh.</div></div>
+      <div class="badge-card locked" id="ach2"><div class="icon">🔥</div><div class="ttl">Streak 3</div><div class="desc">Jaga konsistensi 3 hari.</div></div>
+      <div class="badge-card locked" id="ach3"><div class="icon">👑</div><div class="ttl">Discipline King</div><div class="desc">Capai level 5.</div></div>
+    </div>
+  </div>
+
+  <div class="card wide">
     <h2>🎵 Musik Pendamping</h2>
-    <div class="music-note">
-      Aku tambahkan pemutar musik untuk suasana fokus. Demi keamanan hak cipta, lagu tertentu tidak dimasukkan langsung ke kode. Kamu bisa pilih file audio milikmu sendiri dari perangkat, lalu musik akan diputar di website ini.
-    </div>
-    <div class="music-upload">
-      <input id="audioFile" type="file" accept="audio/*">
-      <audio id="audioPlayer" controls></audio>
+    <div class="music-box">
+      <div>
+        <div class="muted" style="line-height:1.7; margin-bottom:10px">Pilih file audio dari perangkatmu untuk menemani latihan dan belajar. Lagu tertentu tidak dimasukkan langsung.</div>
+        <audio id="audioPlayer" controls></audio>
+      </div>
+      <div>
+        <input id="audioFile" type="file" accept="audio/*">
+      </div>
     </div>
   </div>
 
-  <div class="card wide quote-card">
-    <div class="quote">
-      “Orang besar bukan yang selalu dipuji wajahnya, tetapi yang sanggup membangun dirinya setiap hari. Tubuhmu adalah wadah, pikiranmu adalah arah, dan disiplinmu adalah takdir.”
-      <small>Untuk Muhammad Al-Fatih</small>
+  <div class="card wide">
+    <h2>🏛️ Dinding Filsuf</h2>
+    <div class="philosophers">
+      <div class="philo"><div class="head">Socrates</div><div class="txt">“Kenalilah dirimu.” Glow up sejati dimulai dari kejujuran melihat diri sendiri.</div></div>
+      <div class="philo"><div class="head">Marcus Aurelius</div><div class="txt">Kuasai apa yang bisa kamu kendalikan: disiplin, pikiran, dan tindakanmu hari ini.</div></div>
+      <div class="philo"><div class="head">Ibn Sina</div><div class="txt">Tubuh dan pikiran yang terjaga akan membuat seseorang lebih utuh dalam hidupnya.</div></div>
     </div>
+  </div>
+
+  <div class="card wide">
+    <div class="quote">“Wajah terbaikmu dibentuk oleh disiplin, tubuhmu ditempa oleh latihan, dan martabatmu dijaga oleh ilmu. Orang besar tidak lahir jadi hebat, tetapi dibangun perlahan setiap hari.”<small>Untuk Muhammad Al-Fatih</small></div>
   </div>
 </section>
 
-<div class="footer">Built with discipline, dignity, and vision.</div>
+<div class="footer">Built for self-mastery, dignity, and glow up.</div>
 
   </div>  <script>
     const checks = document.querySelectorAll('.task-check');
-    const audioFile = document.getElementById('audioFile');
-    const audioPlayer = document.getElementById('audioPlayer');
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     const doneCount = document.getElementById('doneCount');
     const percentValue = document.getElementById('percentValue');
-    const targetBerat = document.getElementById('targetBerat');
-    const targetBeratStat = document.getElementById('targetBeratStat');
-    const beratSekarang = document.getElementById('beratSekarang');
-    const catatanHari = document.getElementById('catatanHari');
+    const levelValue = document.getElementById('levelValue');
+    const streakValue = document.getElementById('streakValue');
+    const xpText = document.getElementById('xpText');
+    const levelCircle = document.getElementById('levelCircle');
+    const levelCircleText = document.getElementById('levelCircleText');
+    const weightNow = document.getElementById('weightNow');
+    const weightTarget = document.getElementById('weightTarget');
+    const weeklyFocus = document.getElementById('weeklyFocus');
+    const dailyNote = document.getElementById('dailyNote');
+    const streakGrid = document.getElementById('streakGrid');
+    const audioFile = document.getElementById('audioFile');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+
+    const days = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+    function renderStreakGrid(active = []) {
+      streakGrid.innerHTML = '';
+      days.forEach((d, i) => {
+        const el = document.createElement('div');
+        el.className = 'daybox' + (active.includes(i) ? ' done' : '');
+        el.textContent = d;
+        streakGrid.appendChild(el);
+      });
+    }
+
+    function getXP(done, total) {
+      return done * 10;
+    }
+
+    function getLevel(xpTotal) {
+      return Math.floor(xpTotal / 100) + 1;
+    }
+
+    function xpIntoLevel(xpTotal) {
+      return xpTotal % 100;
+    }
 
     function updateProgress() {
       const total = checks.length;
       const done = [...checks].filter(c => c.checked).length;
       const percent = Math.round((done / total) * 100);
+      const xp = getXP(done, total);
+      const allTimeXP = Number(localStorage.getItem('af_xp_total') || 0) + xp;
+      const level = getLevel(allTimeXP);
+      const levelXP = xpIntoLevel(allTimeXP);
+
       progressBar.style.width = percent + '%';
       doneCount.textContent = done;
       percentValue.textContent = percent + '%';
+      levelValue.textContent = level;
+      xpText.textContent = levelXP + ' / 100 XP';
+      levelCircleText.textContent = 'Lv ' + level;
+      levelCircle.style.setProperty('--deg', (levelXP * 3.6) + 'deg');
 
-      if (percent === 0) {
-        progressText.textContent = 'Belum mulai. Ayo taklukkan harimu.';
-      } else if (percent < 40) {
-        progressText.textContent = 'Awal yang baik. Konsisten lebih penting daripada sempurna.';
-      } else if (percent < 80) {
-        progressText.textContent = 'Bagus. Kamu sedang membentuk versi terbaik dirimu.';
-      } else if (percent < 100) {
-        progressText.textContent = 'Hampir selesai. Selesaikan dengan disiplin seorang penakluk.';
-      } else {
-        progressText.textContent = 'Sempurna hari ini. Jiwa besar dibangun dari kemenangan kecil.';
-      }
+      if (percent === 0) progressText.textContent = 'Mulai hari ini dengan disiplin.';
+      else if (percent < 35) progressText.textContent = 'Awal yang baik. Jangan berhenti di tengah jalan.';
+      else if (percent < 70) progressText.textContent = 'Bagus. Kamu sedang membangun versi dirimu yang lebih tajam.';
+      else if (percent < 100) progressText.textContent = 'Hampir selesai. Tutup harimu dengan kemenangan.';
+      else progressText.textContent = 'Sempurna. Hari ini kamu menang atas dirimu sendiri.';
+
+      updateAchievements();
+    }
+
+    function updateAchievements() {
+      const streak = Number(localStorage.getItem('af_streak') || 0);
+      const level = Number(levelValue.textContent || 1);
+      document.getElementById('ach1').classList.remove('locked');
+      if (streak >= 3) document.getElementById('ach2').classList.remove('locked');
+      if (level >= 5) document.getElementById('ach3').classList.remove('locked');
     }
 
     function saveData() {
-      const checkedStates = [...checks].map(c => c.checked);
-      localStorage.setItem('fatih_checks', JSON.stringify(checkedStates));
-      localStorage.setItem('fatih_target', targetBerat.value || '50');
-      localStorage.setItem('fatih_berat', beratSekarang.value || '');
-      localStorage.setItem('fatih_catatan', catatanHari.value || '');
-      targetBeratStat.textContent = (targetBerat.value || '50') + ' kg';
+      localStorage.setItem('af_checks', JSON.stringify([...checks].map(c => c.checked)));
+      localStorage.setItem('af_weight_now', weightNow.value || '');
+      localStorage.setItem('af_weight_target', weightTarget.value || '50');
+      localStorage.setItem('af_focus', weeklyFocus.value || '');
+      localStorage.setItem('af_note', dailyNote.value || '');
       alert('Progress berhasil disimpan.');
     }
 
-    function loadData() {
-      const savedChecks = JSON.parse(localStorage.getItem('fatih_checks') || '[]');
-      savedChecks.forEach((val, i) => {
-        if (checks[i]) checks[i].checked = val;
-      });
-
-      const savedTarget = localStorage.getItem('fatih_target');
-      const savedBerat = localStorage.getItem('fatih_berat');
-      const savedCatatan = localStorage.getItem('fatih_catatan');
-
-      if (savedTarget) {
-        targetBerat.value = savedTarget;
-        targetBeratStat.textContent = savedTarget + ' kg';
-      }
-      if (savedBerat) beratSekarang.value = savedBerat;
-      if (savedCatatan) catatanHari.value = savedCatatan;
-
-      updateProgress();
-    }
-
-    function resetAll() {
+    function resetChecks() {
       checks.forEach(c => c.checked = false);
-      localStorage.removeItem('fatih_checks');
+      localStorage.setItem('af_checks', JSON.stringify([...checks].map(c => c.checked)));
       updateProgress();
     }
 
-    checks.forEach(check => check.addEventListener('change', updateProgress));
-    targetBerat.addEventListener('input', () => {
-      targetBeratStat.textContent = (targetBerat.value || '50') + ' kg';
+    function finishDay() {
+      const total = checks.length;
+      const done = [...checks].filter(c => c.checked).length;
+      const percent = Math.round((done / total) * 100);
+      const today = new Date().getDay();
+      const adjusted = today === 0 ? 6 : today - 1;
+
+      let week = JSON.parse(localStorage.getItem('af_week') || '[]');
+      if (!week.includes(adjusted) && percent >= 70) week.push(adjusted);
+      localStorage.setItem('af_week', JSON.stringify(week));
+      renderStreakGrid(week);
+
+      let streak = Number(localStorage.getItem('af_streak') || 0);
+      if (percent >= 70) streak += 1;
+      localStorage.setItem('af_streak', streak);
+      streakValue.textContent = streak;
+
+      const sessionXP = done * 10;
+      const currentTotal = Number(localStorage.getItem('af_xp_total') || 0);
+      localStorage.setItem('af_xp_total', currentTotal + sessionXP);
+      updateProgress();
+      alert(percent >= 70 ? 'Hari selesai. Streak bertambah.' : 'Checklist belum cukup. Minimal 70% untuk menambah streak.');
+    }
+
+    function loadData() {
+      const savedChecks = JSON.parse(localStorage.getItem('af_checks') || '[]');
+      savedChecks.forEach((v, i) => { if (checks[i]) checks[i].checked = v; });
+      weightNow.value = localStorage.getItem('af_weight_now') || '';
+      weightTarget.value = localStorage.getItem('af_weight_target') || '50';
+      weeklyFocus.value = localStorage.getItem('af_focus') || 'Naik berat badan';
+      dailyNote.value = localStorage.getItem('af_note') || '';
+      streakValue.textContent = Number(localStorage.getItem('af_streak') || 0);
+      renderStreakGrid(JSON.parse(localStorage.getItem('af_week') || '[]'));
+      updateProgress();
+    }
+
+    checks.forEach(c => c.addEventListener('change', updateProgress));
+    audioFile.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      audioPlayer.src = URL.createObjectURL(file);
+      audioPlayer.play();
     });
 
-    audioFile.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const audioURL = URL.createObjectURL(file);
-      audioPlayer.src = audioURL;
-      audioPlayer.play();
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-flex';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
     });
 
     loadData();
