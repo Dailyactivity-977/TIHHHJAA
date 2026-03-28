@@ -2,74 +2,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Al-Fatih Ultimate Glow Up</title>
-  <meta name="theme-color" content="#0b1220" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Al-Fatih Infinity Glow Up</title>
+  <meta name="theme-color" content="#0a1020" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#060b14;
-      --bg2:#0b1220;
+      --bg:#050915;
+      --bg2:#0a1020;
       --card:rgba(255,255,255,.06);
       --line:rgba(255,255,255,.08);
       --text:#eef2ff;
       --muted:#9fb0c9;
       --gold:#d4af37;
+      --gold2:#f5d87a;
       --blue:#3b82f6;
+      --cyan:#38bdf8;
       --green:#22c55e;
       --red:#ef4444;
-      --shadow:0 20px 50px rgba(0,0,0,.35);
-      --radius:24px;
+      --shadow:0 22px 60px rgba(0,0,0,.42);
+      --radius:26px;
     }*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:'Inter',sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 15% 10%, rgba(59,130,246,.18), transparent 20%),
-    radial-gradient(circle at 85% 20%, rgba(212,175,55,.15), transparent 18%),
-    linear-gradient(135deg, #030712, #0b1220 45%, #111827 100%);
+    radial-gradient(circle at 10% 12%, rgba(59,130,246,.18), transparent 20%),
+    radial-gradient(circle at 88% 16%, rgba(212,175,55,.14), transparent 18%),
+    radial-gradient(circle at 50% 100%, rgba(56,189,248,.08), transparent 25%),
+    linear-gradient(135deg, #020617, #0a1020 45%, #111827 100%);
   min-height:100vh;
   overflow-x:hidden;
 }
 
-.texture,.texture2{
+.grid-overlay,.vignette,.particles{
   position:fixed; inset:0; pointer-events:none;
 }
-.texture{
-  background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+.grid-overlay{
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
   background-size:24px 24px;
-  mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.94), rgba(0,0,0,.28));
 }
-.texture2{
-  background: radial-gradient(circle at center, transparent 45%, rgba(0,0,0,.22));
+.vignette{
+  background:radial-gradient(circle at center, transparent 45%, rgba(0,0,0,.28));
+}
+
+.particles span{
+  position:absolute;
+  display:block;
+  width:4px;
+  height:4px;
+  border-radius:999px;
+  background:rgba(255,255,255,.28);
+  box-shadow:0 0 12px rgba(255,255,255,.22);
+  animation:floatParticle linear infinite;
+}
+.particles span:nth-child(1){left:10%; top:90%; animation-duration:13s; animation-delay:-2s}
+.particles span:nth-child(2){left:22%; top:100%; animation-duration:16s; animation-delay:-5s}
+.particles span:nth-child(3){left:38%; top:92%; animation-duration:15s; animation-delay:-3s}
+.particles span:nth-child(4){left:56%; top:98%; animation-duration:18s; animation-delay:-6s}
+.particles span:nth-child(5){left:72%; top:93%; animation-duration:14s; animation-delay:-4s}
+.particles span:nth-child(6){left:85%; top:97%; animation-duration:17s; animation-delay:-8s}
+.particles span:nth-child(7){left:92%; top:90%; animation-duration:19s; animation-delay:-7s}
+
+@keyframes floatParticle{
+  0%{transform:translateY(0) scale(.8); opacity:0}
+  10%{opacity:.6}
+  90%{opacity:.35}
+  100%{transform:translateY(-120vh) scale(1.4); opacity:0}
 }
 
 .app{
-  width:min(980px, calc(100% - 24px));
+  width:min(1080px, calc(100% - 24px));
   margin:18px auto 36px;
   position:relative;
-  z-index:1;
+  z-index:2;
 }
+
+.reveal{opacity:0; transform:translateY(18px); transition:all .7s ease}
+.reveal.visible{opacity:1; transform:none}
 
 .hero{
   position:relative;
   overflow:hidden;
-  padding:24px;
+  padding:26px;
   border:1px solid var(--line);
-  border-radius:32px;
+  border-radius:34px;
   background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
   box-shadow:var(--shadow);
+  isolation:isolate;
 }
-
 .hero::before{
   content:"";
-  position:absolute; inset:auto -40px -60px auto;
-  width:220px; height:220px; border-radius:999px;
-  background:radial-gradient(circle, rgba(212,175,55,.22), transparent 65%);
+  position:absolute; right:-60px; bottom:-80px;
+  width:240px; height:240px; border-radius:999px;
+  background:radial-gradient(circle, rgba(212,175,55,.26), transparent 65%);
+  filter:blur(6px);
+  animation:pulseGlow 4s ease-in-out infinite;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,.08) 45%, transparent 60%);
+  transform:translateX(-120%);
+  animation:shine 8s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes shine{
+  0%{transform:translateX(-120%)}
+  100%{transform:translateX(140%)}
+}
+@keyframes pulseGlow{
+  0%,100%{transform:scale(1); opacity:.9}
+  50%{transform:scale(1.08); opacity:.65}
+}
+
+.philosopher-stage{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+  opacity:.72;
+}
+.philosopher-stage svg{
+  position:absolute;
+  bottom:-6px;
+  width:260px;
+  height:260px;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.35));
+  opacity:.22;
+}
+.phil-left{left:-20px; animation:swayOne 8s ease-in-out infinite}
+.phil-right{right:-18px; animation:swayTwo 10s ease-in-out infinite}
+.phil-center{
+  width:180px !important;
+  height:180px !important;
+  left:50%; top:10px; bottom:auto;
+  transform:translateX(-50%);
+  opacity:.12 !important;
+  animation:rotateHalo 16s linear infinite;
+}
+
+@keyframes swayOne{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-7px) rotate(-1.2deg)}
+}
+@keyframes swayTwo{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-9px) rotate(1.4deg)}
+}
+@keyframes rotateHalo{
+  0%{transform:translateX(-50%) rotate(0deg)}
+  100%{transform:translateX(-50%) rotate(360deg)}
 }
 
 .topbar{
+  position:relative; z-index:2;
   display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
   margin-bottom:12px;
 }
@@ -79,21 +173,32 @@ body{
   background:rgba(212,175,55,.12);
   border:1px solid rgba(212,175,55,.24);
   color:#fde68a; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  animation:softBlink 3.5s ease-in-out infinite;
 }
-.install-btn{
-  border:none; cursor:pointer; padding:10px 14px; border-radius:14px; font-weight:700;
-  background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white;
-  box-shadow:0 10px 24px rgba(37,99,235,.3);
-}
-h1{
-  margin:0; font-family:'Cinzel',serif; font-size:clamp(30px, 5vw, 54px); line-height:1.05;
-}
-.subtitle{margin:10px 0 8px; color:var(--muted); max-width:720px; line-height:1.75}
-.name{display:inline-block; margin-top:4px; font-weight:800; color:#fff8dc; border-bottom:1px solid rgba(212,175,55,.35); padding-bottom:4px}
+@keyframes softBlink{0%,100%{box-shadow:0 0 0 rgba(212,175,55,0)}50%{box-shadow:0 0 18px rgba(212,175,55,.18)}}
 
-.hero-grid,.grid{
-  display:grid; gap:16px;
+.header-actions{display:flex; gap:10px; flex-wrap:wrap}
+.install-btn,.theme-btn{
+  border:none; cursor:pointer; padding:10px 14px; border-radius:14px; font-weight:700;
+  color:white;
 }
+.install-btn{background:linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow:0 10px 24px rgba(37,99,235,.3)}
+.theme-btn{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08)}
+
+h1{
+  position:relative; z-index:2;
+  margin:0; font-family:'Cinzel',serif; font-size:clamp(30px, 5vw, 58px); line-height:1.04;
+  background:linear-gradient(180deg,#fff,#fff8dc 55%,#d4af37 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 10px 32px rgba(0,0,0,.35);
+}
+.subtitle{position:relative; z-index:2; margin:10px 0 8px; color:var(--muted); max-width:760px; line-height:1.8}
+.name{
+  position:relative; z-index:2; display:inline-block; margin-top:4px; font-weight:800;
+  color:#fff8dc; border-bottom:1px solid rgba(212,175,55,.35); padding-bottom:4px
+}
+
+.hero-grid,.grid{display:grid; gap:16px}
 .hero-grid{grid-template-columns:2fr 1fr; margin-top:18px}
 .grid{grid-template-columns:repeat(2, minmax(0,1fr)); margin-top:16px}
 
@@ -106,50 +211,61 @@ h1{
   padding:18px;
   position:relative;
   overflow:hidden;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
+.card:hover{transform:translateY(-4px); border-color:rgba(212,175,55,.22); box-shadow:0 26px 65px rgba(0,0,0,.44)}
 .card::after{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(135deg, rgba(255,255,255,.04), transparent 40%);
 }
 .wide{grid-column:1/-1}
-.card h2,.card h3{margin:0 0 14px; font-size:24px}
+.card h2,.card h3{margin:0 0 14px; font-size:24px; position:relative; z-index:1}
 .muted{color:var(--muted)}
 
 .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
 .stat{
-  padding:14px; border-radius:20px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)
+  padding:14px; border-radius:20px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05);
+  position:relative; overflow:hidden;
 }
+.stat::before{content:""; position:absolute; inset:auto -25px -25px auto; width:70px; height:70px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.08), transparent 70%)}
 .stat .label{font-size:12px; color:var(--muted); margin-bottom:8px}
 .stat .value{font-size:24px; font-weight:800}
 
 .task{
   display:flex; gap:12px; align-items:center; padding:12px; margin:10px 0;
-  border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)
+  border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05);
+  position:relative;
 }
+.task::before{content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(135deg, rgba(255,255,255,.025), transparent 50%)}
 .task input{
   appearance:none; width:23px; height:23px; border-radius:8px; flex-shrink:0;
   border:2px solid rgba(255,255,255,.35); background:rgba(255,255,255,.05); position:relative; cursor:pointer
 }
-.task input:checked{background:linear-gradient(135deg,#2563eb,#3b82f6); border-color:#60a5fa}
+.task input:checked{background:linear-gradient(135deg,#2563eb,#38bdf8); border-color:#7dd3fc; box-shadow:0 0 18px rgba(56,189,248,.22)}
 .task input:checked::after{content:"✓"; position:absolute; left:5px; top:0; font-weight:800}
-.task span{line-height:1.5}
+.task span{line-height:1.5; position:relative; z-index:1}
 .task input:checked + span{color:var(--green); text-decoration:line-through}
 
 .progress-wrap{height:16px; border-radius:999px; overflow:hidden; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.05)}
-.progress-bar{height:100%; width:0%; background:linear-gradient(90deg, #22c55e, #84cc16, #facc15); transition:width .35s ease}
+.progress-bar{height:100%; width:0%; background:linear-gradient(90deg, #22c55e, #84cc16, #facc15); transition:width .45s ease}
 .progress-meta{display:flex; justify-content:space-between; gap:8px; margin-top:10px; color:var(--muted); font-size:14px; font-weight:600}
 
 .level-shell{display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center}
 .level-circle{
-  width:96px; height:96px; border-radius:999px; display:flex; align-items:center; justify-content:center;
+  width:104px; height:104px; border-radius:999px; display:flex; align-items:center; justify-content:center;
   font-weight:800; font-size:24px; color:#fff8dc;
   background:conic-gradient(var(--gold) var(--deg, 0deg), rgba(255,255,255,.08) 0deg);
   position:relative;
+  animation:spinAura 5s ease-in-out infinite;
 }
 .level-circle::before{
-  content:""; position:absolute; inset:9px; border-radius:999px; background:#0d1525; border:1px solid rgba(255,255,255,.08)
+  content:""; position:absolute; inset:10px; border-radius:999px; background:#0d1525; border:1px solid rgba(255,255,255,.08)
+}
+.level-circle::after{
+  content:""; position:absolute; inset:-8px; border-radius:999px; border:1px solid rgba(212,175,55,.18); opacity:.75
 }
 .level-circle span{position:relative; z-index:1}
+@keyframes spinAura{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 
 .inputs{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px}
 .field{padding:12px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
@@ -160,23 +276,25 @@ h1{
 textarea{min-height:92px}
 
 .btn-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
-.btn{border:none; cursor:pointer; border-radius:14px; padding:12px 16px; font-weight:800}
+.btn{border:none; cursor:pointer; border-radius:14px; padding:12px 16px; font-weight:800; transition:transform .2s ease, opacity .2s ease}
+.btn:hover{transform:translateY(-1px)}
 .btn.primary{background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white}
 .btn.gold{background:linear-gradient(135deg,#a16207,#d4af37); color:#fffdf5}
 .btn.ghost{background:rgba(255,255,255,.08); color:white; border:1px solid rgba(255,255,255,.08)}
 
 .quote{
-  font-family:'Cinzel',serif; line-height:1.8; text-align:center; color:#fff8dc; font-size:22px
+  font-family:'Cinzel',serif; line-height:1.85; text-align:center; color:#fff8dc; font-size:22px
 }
 .quote small{display:block; margin-top:12px; color:var(--muted); font-family:'Inter',sans-serif; text-transform:uppercase; letter-spacing:.08em; font-size:12px}
 
 .streaks{display:grid; grid-template-columns:repeat(7,1fr); gap:8px}
-.daybox{padding:12px 6px; text-align:center; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05); font-size:13px}
-.daybox.done{background:rgba(34,197,94,.14); border-color:rgba(34,197,94,.3); color:#bbf7d0}
+.daybox{padding:12px 6px; text-align:center; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05); font-size:13px; transition:.25s ease}
+.daybox.done{background:rgba(34,197,94,.14); border-color:rgba(34,197,94,.3); color:#bbf7d0; box-shadow:0 0 16px rgba(34,197,94,.12)}
 
-.achievements{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-.badge-card{padding:14px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05)}
-.badge-card.locked{opacity:.45; filter:grayscale(.3)}
+.achievements{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.badge-card{padding:14px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.05); transition:.25s ease}
+.badge-card.locked{opacity:.42; filter:grayscale(.35)}
+.badge-card:not(.locked):hover{transform:translateY(-3px); border-color:rgba(212,175,55,.28)}
 .badge-card .icon{font-size:28px; margin-bottom:10px}
 .badge-card .ttl{font-weight:800; margin-bottom:6px}
 .badge-card .desc{font-size:13px; color:var(--muted); line-height:1.5}
@@ -186,35 +304,91 @@ textarea{min-height:92px}
 
 .philosophers{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
 .philo{
-  padding:14px; border-radius:18px; background:linear-gradient(135deg, rgba(212,175,55,.12), rgba(255,255,255,.04)); border:1px solid rgba(212,175,55,.2)
+  padding:14px; border-radius:18px; background:linear-gradient(135deg, rgba(212,175,55,.12), rgba(255,255,255,.04)); border:1px solid rgba(212,175,55,.2);
+  position:relative; overflow:hidden;
 }
+.philo::after{content:""; position:absolute; inset:auto -30px -30px auto; width:90px; height:90px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.08), transparent 70%)}
 .philo .head{font-family:'Cinzel',serif; font-size:20px; margin-bottom:8px}
 .philo .txt{font-size:13px; line-height:1.6; color:var(--muted)}
 
+.philo-anim-wrap{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+}
+.anim-card{
+  padding:16px; border-radius:20px; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.06); text-align:center; position:relative; overflow:hidden;
+}
+.anim-card svg{width:100%; max-width:180px; height:180px; margin:auto; display:block}
+.anim-title{font-weight:800; margin-top:8px}
+.anim-desc{font-size:13px; color:var(--muted); line-height:1.6; margin-top:6px}
+
+.bust path,.bust circle,.bust ellipse{stroke:rgba(245,216,122,.75); fill:rgba(212,175,55,.06); stroke-width:2}
+.bust.one{animation:breathe 4s ease-in-out infinite}
+.bust.two{animation:tiltWisdom 6s ease-in-out infinite}
+.bust.three{animation:floatThink 5.8s ease-in-out infinite}
+
+.halo-ring{transform-origin:center; animation:rotateHaloSlow 14s linear infinite}
+.spark{animation:sparkle 2.8s ease-in-out infinite}
+.spark.delay{animation-delay:1.2s}
+.line-wave{animation:drawWave 3s ease-in-out infinite}
+
+@keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.02)}}
+@keyframes tiltWisdom{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(1.4deg) translateY(-4px)}}
+@keyframes floatThink{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes rotateHaloSlow{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes sparkle{0%,100%{opacity:.25; transform:scale(1)}50%{opacity:1; transform:scale(1.18)}}
+@keyframes drawWave{0%,100%{opacity:.35}50%{opacity:1}}
+
 .footer{text-align:center; color:var(--muted); padding:24px 0 8px; font-size:13px}
 
-@media (max-width: 820px){
-  .hero-grid,.grid,.stats,.inputs,.achievements,.philosophers{grid-template-columns:1fr}
+@media (max-width: 900px){
+  .hero-grid,.grid,.stats,.inputs,.achievements,.philosophers,.philo-anim-wrap{grid-template-columns:1fr}
   .streaks{grid-template-columns:repeat(4,1fr)}
   .level-shell,.music-box{grid-template-columns:1fr}
   .level-circle{margin:auto}
-  .app{width:min(100% - 16px, 980px)}
-  h1{font-size:38px}
+  .app{width:min(100% - 16px, 1080px)}
+  h1{font-size:40px}
+  .philosopher-stage svg{width:180px; height:180px}
+  .phil-center{width:130px !important; height:130px !important}
 }
 
   </style>
 </head>
 <body>
-  <div class="texture"></div>
-  <div class="texture2"></div>  <div class="app">
-    <section class="hero">
-      <div class="topbar">
-        <div class="chip">Ultimate Philosopher Glow Up</div>
-        <button id="installBtn" class="install-btn" style="display:none">Install App</button>
-      </div>
-      <h1>Al-Fatih Ultimate Glow Up</h1>
-      <div class="name">Muhammad Al-Fatih</div>
-      <p class="subtitle">Sistem pribadi untuk membangun tubuh, rahang, disiplin, ilmu, dan aura. Bukan sekadar checklist, tapi markas latihan untuk versi dirimu yang lebih kuat, lebih tenang, dan lebih berkelas.</p><div class="hero-grid">
+  <div class="grid-overlay"></div>
+  <div class="vignette"></div>
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>  <div class="app">
+    <section class="hero reveal">
+      <div class="philosopher-stage" aria-hidden="true">
+        <svg class="phil-left" viewBox="0 0 220 220" fill="none">
+          <circle cx="110" cy="110" r="78" stroke="rgba(245,216,122,.22)" stroke-width="2" stroke-dasharray="6 8"/>
+          <path d="M70 175c12-32 18-42 40-42s28 10 40 42" fill="rgba(212,175,55,.08)" stroke="rgba(245,216,122,.35)" stroke-width="2"/>
+          <ellipse cx="110" cy="92" rx="28" ry="33" fill="rgba(212,175,55,.08)" stroke="rgba(245,216,122,.35)" stroke-width="2"/>
+          <path d="M84 84c6-18 17-28 26-28 14 0 26 11 26 28" stroke="rgba(245,216,122,.3)" stroke-width="2"/>
+        </svg>
+        <svg class="phil-right" viewBox="0 0 220 220" fill="none">
+          <circle cx="110" cy="110" r="84" stroke="rgba(56,189,248,.14)" stroke-width="2" stroke-dasharray="10 10"/>
+          <path d="M72 174c11-30 18-42 38-42 24 0 33 13 41 42" fill="rgba(56,189,248,.05)" stroke="rgba(255,255,255,.24)" stroke-width="2"/>
+          <ellipse cx="110" cy="92" rx="29" ry="34" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.24)" stroke-width="2"/>
+          <path d="M84 80c7-14 16-23 26-23 15 0 26 12 27 23" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
+        </svg>
+        <svg class="phil-center" viewBox="0 0 220 220" fill="none">
+          <circle cx="110" cy="110" r="92" stroke="rgba(212,175,55,.2)" stroke-width="2" stroke-dasharray="8 10"/>
+          <circle cx="110" cy="110" r="74" stroke="rgba(255,255,255,.08)" stroke-width="1.5" stroke-dasharray="6 9"/>
+        </svg>
+      </div><div class="topbar">
+    <div class="chip">Infinity Philosopher Glow Up</div>
+    <div class="header-actions">
+      <button id="installBtn" class="install-btn" style="display:none">Install App</button>
+      <button id="themeBtn" class="theme-btn">Mode Emas</button>
+    </div>
+  </div>
+  <h1>Al-Fatih Infinity Glow Up</h1>
+  <div class="name">Muhammad Al-Fatih</div>
+  <p class="subtitle">Versi paling maksimal: sistem glow up, disiplin, level, streak, achievement, dashboard, dan animasi filsuf yang hidup. Tempat ini dibuat untuk membangun aura, tubuh, pikiran, dan martabatmu setiap hari.</p>
+
+  <div class="hero-grid">
     <div class="card">
       <h3>📊 Dashboard Hari Ini</h3>
       <div class="stats">
@@ -231,7 +405,7 @@ textarea{min-height:92px}
       <h3>⚔️ XP & Level</h3>
       <div class="level-shell">
         <div>
-          <div class="muted" style="line-height:1.7">Setiap tugas yang selesai memberi XP. Saat XP penuh, level kamu naik. Anggap ini seperti game untuk menaklukkan dirimu sendiri.</div>
+          <div class="muted" style="line-height:1.7">Setiap tugas memberi XP. Saat XP penuh, level kamu naik. Ini adalah game untuk mengalahkan rasa malas dan membentuk versi terbaik dirimu.</div>
         </div>
         <div class="level-circle" id="levelCircle"><span id="levelCircleText">Lv 1</span></div>
       </div>
@@ -240,7 +414,7 @@ textarea{min-height:92px}
 </section>
 
 <section class="grid">
-  <div class="card">
+  <div class="card reveal">
     <h2>💪 Body Builder</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Push Up 3 × 15</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Squat 3 × 20</span></label>
@@ -249,7 +423,7 @@ textarea{min-height:92px}
     <label class="task"><input type="checkbox" class="task-check"><span>Makan protein setelah latihan</span></label>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>🧱 Rahang & Mata</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Mewing sepanjang hari</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Chin Tuck 2 × 15</span></label>
@@ -258,7 +432,7 @@ textarea{min-height:92px}
     <label class="task"><input type="checkbox" class="task-check"><span>Tidur cukup dan napas lewat hidung</span></label>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>🧠 Ilmu & Filsafat</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Baca filsafat 30 menit</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Murojaah hafalan 30 menit</span></label>
@@ -266,7 +440,7 @@ textarea{min-height:92px}
     <label class="task"><input type="checkbox" class="task-check"><span>Bahasa Arab / Inggris 20 menit</span></label>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>✨ Aura & Perawatan</h2>
     <label class="task"><input type="checkbox" class="task-check"><span>Skincare pagi / malam</span></label>
     <label class="task"><input type="checkbox" class="task-check"><span>Minum air cukup</span></label>
@@ -274,8 +448,8 @@ textarea{min-height:92px}
     <label class="task"><input type="checkbox" class="task-check"><span>Rapikan rambut & outfit</span></label>
   </div>
 
-  <div class="card wide">
-    <h2>🎯 Target & Catatan</h2>
+  <div class="card wide reveal">
+    <h2>🎯 Target, Evaluasi, dan Fokus</h2>
     <div class="inputs">
       <div class="field">
         <label>Berat Sekarang (kg)</label>
@@ -306,21 +480,22 @@ textarea{min-height:92px}
     </div>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>🔥 Streak Mingguan</h2>
     <div class="streaks" id="streakGrid"></div>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>🏆 Achievement</h2>
     <div class="achievements">
       <div class="badge-card" id="ach1"><div class="icon">⚡</div><div class="ttl">Starter</div><div class="desc">Selesaikan 1 hari penuh.</div></div>
       <div class="badge-card locked" id="ach2"><div class="icon">🔥</div><div class="ttl">Streak 3</div><div class="desc">Jaga konsistensi 3 hari.</div></div>
       <div class="badge-card locked" id="ach3"><div class="icon">👑</div><div class="ttl">Discipline King</div><div class="desc">Capai level 5.</div></div>
+      <div class="badge-card locked" id="ach4"><div class="icon">🧠</div><div class="ttl">Philosopher</div><div class="desc">Selesaikan 20 tugas ilmu.</div></div>
     </div>
   </div>
 
-  <div class="card wide">
+  <div class="card wide reveal">
     <h2>🎵 Musik Pendamping</h2>
     <div class="music-box">
       <div>
@@ -333,21 +508,71 @@ textarea{min-height:92px}
     </div>
   </div>
 
-  <div class="card wide">
+  <div class="card wide reveal">
     <h2>🏛️ Dinding Filsuf</h2>
     <div class="philosophers">
-      <div class="philo"><div class="head">Socrates</div><div class="txt">“Kenalilah dirimu.” Glow up sejati dimulai dari kejujuran melihat diri sendiri.</div></div>
+      <div class="philo"><div class="head">Socrates</div><div class="txt">“Kenalilah dirimu.” Glow up sejati dimulai dari keberanian melihat diri sendiri dengan jujur.</div></div>
       <div class="philo"><div class="head">Marcus Aurelius</div><div class="txt">Kuasai apa yang bisa kamu kendalikan: disiplin, pikiran, dan tindakanmu hari ini.</div></div>
-      <div class="philo"><div class="head">Ibn Sina</div><div class="txt">Tubuh dan pikiran yang terjaga akan membuat seseorang lebih utuh dalam hidupnya.</div></div>
+      <div class="philo"><div class="head">Ibn Sina</div><div class="txt">Tubuh dan pikiran yang terjaga membuat seseorang lebih utuh dan lebih bernilai dalam hidupnya.</div></div>
     </div>
   </div>
 
-  <div class="card wide">
+  <div class="card wide reveal">
+    <h2>🎭 Animasi Filsuf</h2>
+    <div class="philo-anim-wrap">
+      <div class="anim-card">
+        <svg viewBox="0 0 220 220" class="bust one" aria-hidden="true">
+          <g class="halo-ring">
+            <circle cx="110" cy="110" r="88" fill="none" stroke-dasharray="8 10"></circle>
+            <circle cx="110" cy="110" r="70" fill="none" stroke-dasharray="5 8"></circle>
+          </g>
+          <ellipse cx="110" cy="90" rx="30" ry="35"></ellipse>
+          <path d="M78 176c10-31 17-44 32-44 27 0 33 14 42 44"></path>
+          <path d="M86 76c6-16 16-24 24-24 14 0 24 10 25 24"></path>
+          <circle class="spark" cx="54" cy="56" r="4" fill="rgba(245,216,122,.75)" stroke="none"></circle>
+          <circle class="spark delay" cx="165" cy="50" r="3.5" fill="rgba(255,255,255,.8)" stroke="none"></circle>
+        </svg>
+        <div class="anim-title">Socrates Mode</div>
+        <div class="anim-desc">Animasi tenang yang melambangkan refleksi diri dan pencarian kebenaran.</div>
+      </div>
+
+      <div class="anim-card">
+        <svg viewBox="0 0 220 220" class="bust two" aria-hidden="true">
+          <path class="line-wave" d="M22 112c24-10 38 10 56 0s33-8 49 0 32 10 71-4" fill="none"></path>
+          <ellipse cx="110" cy="88" rx="32" ry="36"></ellipse>
+          <path d="M74 176c11-33 18-44 36-44 24 0 34 11 41 44"></path>
+          <path d="M86 72c8-14 16-22 24-22 13 0 24 10 25 22"></path>
+          <circle class="spark" cx="48" cy="78" r="3.5" fill="rgba(56,189,248,.9)" stroke="none"></circle>
+          <circle class="spark delay" cx="174" cy="78" r="3.5" fill="rgba(56,189,248,.9)" stroke="none"></circle>
+        </svg>
+        <div class="anim-title">Stoic Mode</div>
+        <div class="anim-desc">Gerak halus dan stabil sebagai simbol ketenangan, fokus, dan kendali diri.</div>
+      </div>
+
+      <div class="anim-card">
+        <svg viewBox="0 0 220 220" class="bust three" aria-hidden="true">
+          <g class="halo-ring">
+            <circle cx="110" cy="110" r="86" fill="none" stroke-dasharray="7 9"></circle>
+          </g>
+          <ellipse cx="110" cy="86" rx="31" ry="35"></ellipse>
+          <path d="M76 176c12-32 19-45 34-45 25 0 34 13 41 45"></path>
+          <path d="M86 70c7-15 17-23 24-23 13 0 24 10 25 23"></path>
+          <path class="line-wave" d="M52 140c18-8 26 6 40 0 15-7 25-7 39 0 14 6 24 9 38 0" fill="none"></path>
+          <circle class="spark" cx="55" cy="48" r="3.5" fill="rgba(245,216,122,.82)" stroke="none"></circle>
+          <circle class="spark delay" cx="170" cy="54" r="4" fill="rgba(245,216,122,.82)" stroke="none"></circle>
+        </svg>
+        <div class="anim-title">Golden Philosopher</div>
+        <div class="anim-desc">Aura emas dengan rotasi halo untuk suasana agung, tenang, dan berkelas.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card wide reveal">
     <div class="quote">“Wajah terbaikmu dibentuk oleh disiplin, tubuhmu ditempa oleh latihan, dan martabatmu dijaga oleh ilmu. Orang besar tidak lahir jadi hebat, tetapi dibangun perlahan setiap hari.”<small>Untuk Muhammad Al-Fatih</small></div>
   </div>
 </section>
 
-<div class="footer">Built for self-mastery, dignity, and glow up.</div>
+<div class="footer">Built for self-mastery, dignity, philosophy, and real glow up.</div>
 
   </div>  <script>
     const checks = document.querySelectorAll('.task-check');
@@ -367,9 +592,11 @@ textarea{min-height:92px}
     const streakGrid = document.getElementById('streakGrid');
     const audioFile = document.getElementById('audioFile');
     const audioPlayer = document.getElementById('audioPlayer');
+    const installBtn = document.getElementById('installBtn');
+    const themeBtn = document.getElementById('themeBtn');
+    const revealEls = document.querySelectorAll('.reveal');
 
     let deferredPrompt = null;
-    const installBtn = document.getElementById('installBtn');
 
     const days = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
     function renderStreakGrid(active = []) {
@@ -382,14 +609,9 @@ textarea{min-height:92px}
       });
     }
 
-    function getXP(done, total) {
-      return done * 10;
-    }
-
     function getLevel(xpTotal) {
       return Math.floor(xpTotal / 100) + 1;
     }
-
     function xpIntoLevel(xpTotal) {
       return xpTotal % 100;
     }
@@ -398,8 +620,7 @@ textarea{min-height:92px}
       const total = checks.length;
       const done = [...checks].filter(c => c.checked).length;
       const percent = Math.round((done / total) * 100);
-      const xp = getXP(done, total);
-      const allTimeXP = Number(localStorage.getItem('af_xp_total') || 0) + xp;
+      const allTimeXP = Number(localStorage.getItem('af_xp_total') || 0);
       const level = getLevel(allTimeXP);
       const levelXP = xpIntoLevel(allTimeXP);
 
@@ -418,22 +639,25 @@ textarea{min-height:92px}
       else progressText.textContent = 'Sempurna. Hari ini kamu menang atas dirimu sendiri.';
 
       updateAchievements();
+      localStorage.setItem('af_checks', JSON.stringify([...checks].map(c => c.checked)));
     }
 
     function updateAchievements() {
       const streak = Number(localStorage.getItem('af_streak') || 0);
       const level = Number(levelValue.textContent || 1);
+      const knowledgeDone = Number(localStorage.getItem('af_knowledge_done') || 0);
       document.getElementById('ach1').classList.remove('locked');
       if (streak >= 3) document.getElementById('ach2').classList.remove('locked');
       if (level >= 5) document.getElementById('ach3').classList.remove('locked');
+      if (knowledgeDone >= 20) document.getElementById('ach4').classList.remove('locked');
     }
 
     function saveData() {
-      localStorage.setItem('af_checks', JSON.stringify([...checks].map(c => c.checked)));
       localStorage.setItem('af_weight_now', weightNow.value || '');
       localStorage.setItem('af_weight_target', weightTarget.value || '50');
       localStorage.setItem('af_focus', weeklyFocus.value || '');
       localStorage.setItem('af_note', dailyNote.value || '');
+      localStorage.setItem('af_checks', JSON.stringify([...checks].map(c => c.checked)));
       alert('Progress berhasil disimpan.');
     }
 
@@ -460,11 +684,17 @@ textarea{min-height:92px}
       localStorage.setItem('af_streak', streak);
       streakValue.textContent = streak;
 
-      const sessionXP = done * 10;
       const currentTotal = Number(localStorage.getItem('af_xp_total') || 0);
+      const sessionXP = done * 10;
       localStorage.setItem('af_xp_total', currentTotal + sessionXP);
+
+      const knowledgeChecks = [checks[10], checks[11], checks[12], checks[13]].filter(Boolean);
+      const knowledgeDoneToday = knowledgeChecks.filter(c => c.checked).length;
+      const currentKnowledge = Number(localStorage.getItem('af_knowledge_done') || 0);
+      localStorage.setItem('af_knowledge_done', currentKnowledge + knowledgeDoneToday);
+
       updateProgress();
-      alert(percent >= 70 ? 'Hari selesai. Streak bertambah.' : 'Checklist belum cukup. Minimal 70% untuk menambah streak.');
+      alert(percent >= 70 ? 'Hari selesai. Streak dan XP bertambah.' : 'Checklist belum cukup. Minimal 70% untuk menambah streak.');
     }
 
     function loadData() {
@@ -476,8 +706,33 @@ textarea{min-height:92px}
       dailyNote.value = localStorage.getItem('af_note') || '';
       streakValue.textContent = Number(localStorage.getItem('af_streak') || 0);
       renderStreakGrid(JSON.parse(localStorage.getItem('af_week') || '[]'));
+      const savedTheme = localStorage.getItem('af_theme') || 'blue';
+      if (savedTheme === 'gold') enableGoldTheme();
       updateProgress();
     }
+
+    function enableGoldTheme() {
+      document.documentElement.style.setProperty('--blue', '#d4af37');
+      document.documentElement.style.setProperty('--cyan', '#f5d87a');
+      document.body.style.background = 'radial-gradient(circle at 10% 12%, rgba(212,175,55,.18), transparent 20%), radial-gradient(circle at 88% 16%, rgba(245,216,122,.14), transparent 18%), radial-gradient(circle at 50% 100%, rgba(212,175,55,.08), transparent 25%), linear-gradient(135deg, #0a0810, #17111f 45%, #201815 100%)';
+      localStorage.setItem('af_theme', 'gold');
+      themeBtn.textContent = 'Mode Biru';
+      themeBtn.dataset.mode = 'gold';
+    }
+
+    function enableBlueTheme() {
+      document.documentElement.style.setProperty('--blue', '#3b82f6');
+      document.documentElement.style.setProperty('--cyan', '#38bdf8');
+      document.body.style.background = 'radial-gradient(circle at 10% 12%, rgba(59,130,246,.18), transparent 20%), radial-gradient(circle at 88% 16%, rgba(212,175,55,.14), transparent 18%), radial-gradient(circle at 50% 100%, rgba(56,189,248,.08), transparent 25%), linear-gradient(135deg, #020617, #0a1020 45%, #111827 100%)';
+      localStorage.setItem('af_theme', 'blue');
+      themeBtn.textContent = 'Mode Emas';
+      themeBtn.dataset.mode = 'blue';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if (themeBtn.dataset.mode === 'gold') enableBlueTheme();
+      else enableGoldTheme();
+    });
 
     checks.forEach(c => c.addEventListener('change', updateProgress));
     audioFile.addEventListener('change', e => {
@@ -500,6 +755,13 @@ textarea{min-height:92px}
       deferredPrompt = null;
       installBtn.style.display = 'none';
     });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .12 });
+    revealEls.forEach(el => observer.observe(el));
 
     loadData();
   </script></body>
